@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+<bean id="pvc" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="register"></property>
+</bean>
+
+<!--Configure the multi Action Controller   -->
+<bean id="rc" class="com.nt.controller.RegisterController">
+		<property name="methodNameResolver" ref="ipmnr"/>
+</bean>
+
+<!--Configure method Resolver   -->
+<bean id="ipmnr" class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver">
+	<property name="prefix" value="*"></property>
+	<property name="suffix" value="*"></property>
+	</bean>
+<!--Configure the Handler Mapping   -->
+<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+						<prop key="welcome.htm">pvc</prop>
+						<prop key="register.jsp">rc</prop>
+			</props>
+		</property>
+</bean>
+<!--Configure the View Resolver  -->
+ 
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/pages/"/>
+		<property name="suffix" value=".jsp"/>
+</bean>
+ </beans>
+ 
